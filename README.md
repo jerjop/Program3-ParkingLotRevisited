@@ -21,11 +21,12 @@ A priority queue is a queue such that insertions are made in any order, but when
 
 In our previous solution, (program 1),  we considered all one-move solutions before considering all two move solutions, and so on.  If we are smarter in which solutions we consider, we can improve the functioning of the solution.  In this assignment, you will compare your previous solution to this new technique.
 
-We will modify Node to contain
-•	depth (already there): number of moves taken from initial state to reach current board
-•	estimated number of remaining moves to reach a solution
-•	priority (depth + estimated number of remaining moves to reach a solution)
-•	The Node class will need to implement comparable in order to be used with the AVL tree code.
+We will modify Node to contain <br>
+•	depth (already there): number of moves taken from initial state to reach current board <br>
+•	estimated number of remaining moves to reach a solution <br>
+•	priority (depth + estimated number of remaining moves to reach a solution) <br>
+•	The Node class will need to implement comparable in order to be used with the AVL tree code. <br>
+
 Best-first search. Our solution illustrates a general artificial intelligence methodology known as the A* search algorithm. 
 First, insert the initial state into a priority queue. Then, select from the priority queue the state with the smallest priority.  From this node, insert onto the priority queue all neighboring states (those that can be reached in one more move) using an appropriate estimated cost for each. Repeat this procedure until the state removed from the priority queue is the goal state. The success of this approach hinges on the choice of estimated cost or priority function.  Note how similar it is to the brute force solution.  The only difference is the type of queue that is used.
 You can compute your “expected work function” any way you want as long it is reasonable and underestimates the real cost. Be creative. Here is a simple choice
@@ -36,11 +37,10 @@ Consequently, as soon as we dequeue a board which has the goal state, we have no
 ### PART 3
 
 Use Java’s build-in Hash Function to make sure you never revisit a state that is already on your priority queue.  The only catch is that you can’t discard a state if it is better than a previously enqueued equivalent state.    I had convinced myself that it wouldn’t happen, but I was wrong.  See NOTES below if you want a better explanation.  
-The take away is:
-a.	If you generate a state that hasn’t been reached, put it on the priority queue.
-b.	If you generate a state that you have already put on the queue, but you reach the state quicker, put it on the priority queue.
-c.	Otherwise,  you can discard the duplicate state.
-T
+The take away is: <br>
+a.	If you generate a state that hasn’t been reached, put it on the priority queue. <br>
+b.	If you generate a state that you have already put on the queue, but you reach the state quicker, put it on the priority queue. <br>
+c.	Otherwise,  you can discard the duplicate state. <br>
 
 Output:
 Since we want to compare this version with our brute force solution in program 1, you will need to have both methods working.    Modify Puzzle to call either “solve” or “aStarSolve” on the same board.  Each method should keep track of the total number of states that were put on the queue.

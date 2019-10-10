@@ -8,10 +8,24 @@ public class LinkedList<E extends Comparable> {
         this.size = 0;
     }
 
+    public LinkedList(E o) {
+        this.head.value = o;
+        this.size++;
+        this.maxSize++;
+    }
+
+    public E getHeadNode() {
+        return head.value;
+    }
+
     public ListNode<E> getHead() {return head;}
 
     public void add(E o) {
         ListNode<E> node = new ListNode<>(o);
+
+        if (head == null) {
+            head = node;
+        }
 
         if (tail == null) {
             head.next = tail = node;

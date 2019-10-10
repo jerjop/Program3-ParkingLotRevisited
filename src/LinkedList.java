@@ -2,6 +2,7 @@ public class LinkedList<E extends Comparable> {
     private ListNode<E> head = new ListNode<>();
     private ListNode<E> tail;
     private int size;
+    private int maxSize;
 
     public LinkedList() {
         this.size = 0;
@@ -21,6 +22,7 @@ public class LinkedList<E extends Comparable> {
         }
 
         this.size++;
+        this.maxSize++;
     }
 
     public void insert(E o) {
@@ -40,6 +42,7 @@ public class LinkedList<E extends Comparable> {
         }
 
         this.size++;
+        this.maxSize++;
     }
 
     public void remove(E o) {

@@ -26,6 +26,8 @@ public class Puzzle {
     private boolean carOrient[];
     private int gridSize;
 
+    private LinkedList<Node> queue;
+
     /**
      * The main constructor for constructing a puzzle.  You probably
      * will never need to use this constructor directly, since
@@ -217,7 +219,50 @@ public class Puzzle {
         return initNode;
     }
 
-    public void solve(boolean doPrint, Node solution) {
+    public void solve(boolean doPrint) {
+        System.out.println("========================");
+        System.out.println(initNode.toString());
+        Node solution = solve();
+        System.out.print("\n\nSOLUTION  of Depth " + solution.getDepth());
+        System.out.println(" Total Nodes Expanded " + allNodes.size() + "\n");
+        printSolution(solution);
+    }
+
+    public Node solve(){
+        queue.add(initNode);
+        while(!queue.isEmpty()){
+            Node current = queue.getHead();
+            if (current.isGoal()) {
+                return current;
+            }
+
+            Node[] children = current.expand();
+            for (Node child : children) {
+                boolean duplicate = false;
+                for (Node check : queue) {
+                    if (child.equals(check)) {
+                        duplicate = true;
+                        break;
+                    }
+                }
+                if (!duplicate) {
+                    queue.offer(child);
+                }
+            }
+        }
+        return null;
+    }
+
+    public void solve(boolean doPrint) {
+        System.out.println("========================");
+        System.out.println(initNode.toString());
+
+        System.out.print("\n\nSOLUTION  of Depth " + solution.getDepth());
+        System.out.println(" Total Nodes Expanded " + allNodes.size() + "\n");
+        printSolution(solution);
+    }
+
+    public void aStarSolve(boolean doPrint, Node solution) {
         System.out.println("========================");
         System.out.println(initNode.toString());
 

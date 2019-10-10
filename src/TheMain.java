@@ -22,14 +22,7 @@ public class TheMain {
 
         for (int i = 0; i < num_puzzles; i++) {
             Node initial = puzzles[i].getInitNode();
-//            Node solution = search(initial);
-            if (true) {
-                puzzles[i].solve(doPrint, search(initial));
-            } else {
-                // not even close to done
-                puzzles[i].aStarSolve(doPrint, search(initial));
-            }
-
+            puzzles[i].solve(doPrint, initial);
         }
 
         // lets get this done please

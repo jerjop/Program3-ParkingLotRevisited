@@ -32,7 +32,7 @@ public class Node implements Comparable<Node> {
         this.move = move;
         this.depth = depth;
         this.estRemaining = estRemaining;
-        this.priority = priority;
+        this.priority = estRemaining + depth;
         getGrid();
         computeHashCode();
     }

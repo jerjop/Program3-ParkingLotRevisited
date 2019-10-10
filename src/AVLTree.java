@@ -80,14 +80,14 @@ public class AVLTree<AnyType extends Comparable<? super AnyType>>
      * Find the smallest item in the tree.
      * @return smallest item or null if empty.
      */
-    public AnyType findMin( )
+    public AnyType findMin()
     {
         if( isEmpty( ) )
             throw new RuntimeException( );
         return findMin( root ).element;
     }
 
-    public  void  deleteMin( ){
+    public void deleteMin(){
 
         root =  deleteMin(root);
     }
@@ -96,10 +96,10 @@ public class AVLTree<AnyType extends Comparable<? super AnyType>>
      * Find the largest item in the tree.
      * @return the largest item of null if empty.
      */
-    public AnyType findMax( )
+    public AnyType findMax()
     {
-        if( isEmpty( ) )
-            throw new RuntimeException( );
+        if( isEmpty() )
+            throw new RuntimeException();
         return findMax( root ).element;
     }
 

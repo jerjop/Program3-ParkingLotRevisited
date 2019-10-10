@@ -19,11 +19,23 @@ public class TheMain {
 
         boolean doPrint = true;
         // solve each of the first six puzzles.  The others will likely take too long
+
         for (int i = 0; i < num_puzzles; i++) {
             Node initial = puzzles[i].getInitNode();
 //            Node solution = search(initial);
-            puzzles[i].solve(doPrint, search(initial));
+            if (true) {
+                puzzles[i].solve(doPrint, search(initial));
+            } else {
+                // not even close to done
+                puzzles[i].aStarSolve(doPrint, search(initial));
+            }
+
         }
+
+        // lets get this done please
+
+
+
     }
 
     public static Node search(Node initial){

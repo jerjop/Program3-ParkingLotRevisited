@@ -13,7 +13,7 @@ public class Node implements Comparable<Node> {
     private int hashcode;    // state of grid in coded form (for easy comparison)
 
     private int estRemaining; //Estimated Number of Remaining Moves to reach a solution
-    private int priority; //depth+estRemaining
+    private int priority; //depth + estRemaining
 
     final int GOAL_CAR = 0;
     /**
@@ -31,10 +31,11 @@ public class Node implements Comparable<Node> {
         this.varPos = varPos;
         this.move = move;
         this.depth = depth;
-//        this.estRemaining = estRemaining;
-//        this.priority = estRemaining + depth;
         getGrid();
         computeHashCode();
+
+        this.estRemaining = countCarsInPath() + 1;
+        this.priority = estRemaining + depth;
     }
 
     public Node getParent() {
@@ -56,6 +57,21 @@ public class Node implements Comparable<Node> {
 //    public int getPriority() {
 //        return priority;
 //    }
+
+    public int countCarsInPath() {
+        int countCars = 0;
+        for (int i = 0; i < grid.length; i++) {
+            int trackIndex = 0;
+            if (grid[i][3] == 0) {
+                trackIndex = i;
+            }
+
+            if (grid[i][3] > 0 && i > trackIndex) {
+                countCars++;
+            }
+        }
+        return countCars;
+    }
 
     /**
      * Computes a grid representation of the state of the puzzle.  In particular, an

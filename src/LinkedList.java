@@ -2,7 +2,7 @@ public class LinkedList<E extends Comparable> {
     private ListNode<E> head = new ListNode<>();
     private ListNode<E> tail;
     private int size;
-    private int maxSize;
+    public int maxSize;
 
     public LinkedList() {
         this.size = 0;
@@ -44,7 +44,7 @@ public class LinkedList<E extends Comparable> {
         ListNode<E> current = head.next;
         ListNode<E> previous = head;
 
-        while (current != null && current.value.compareTo(o) < 0) {
+        while (current != null && current.value.hashCode() != o.hashCode()) {
             previous = current;
             current = current.next;
         }
@@ -75,12 +75,50 @@ public class LinkedList<E extends Comparable> {
         this.size--;
     }
 
+    public void removeHeadNode() {
+        if (head == null) {
+            return;
+        }
+        head = head.next;
+        this.size--;
+    }
+
+    public ListNode<E> getListNode(E o) {
+        ListNode<E> node = head;
+        boolean found = false;
+
+        while (!found && node != null) {
+            if (node.value.hashCode() == o.hashCode()) {
+                found = true;
+            }
+            else {
+                node = node.next;
+            }
+        }
+        return node;
+    }
+
     public boolean find(E o) {
         ListNode<E> node = head.next;
         boolean found = false;
 
         while (!found && node != null) {
             if (node.value == o) {
+                found = true;
+            }
+            else {
+                node = node.next;
+            }
+        }
+        return found;
+    }
+
+    public boolean findHash(int hashcode) {
+        ListNode<E> node = head;
+        boolean found = false;
+
+        while (!found && node != null) {
+            if (node.value.hashCode() == hashcode) {
                 found = true;
             }
             else {

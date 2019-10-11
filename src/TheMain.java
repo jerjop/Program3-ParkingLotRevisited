@@ -16,45 +16,13 @@ public class TheMain {
         Puzzle[] puzzles = Puzzle.readPuzzlesFromFile("jamsAll.txt");
         //int num_puzzles = puzzles.length;
         int num_puzzles = 1;
-
         boolean doPrint = true;
         // solve each of the first six puzzles.  The others will likely take too long
-
         for (int i = 0; i < num_puzzles; i++) {
             Node initial = puzzles[i].getInitNode();
             puzzles[i].solve(doPrint, initial);
+//            System.out.println(initial.countCarsInPath());
+
         }
-
-        // lets get this done please
-
-
-
     }
-
-//    public static Node search(Node initial){
-//        Queue<Node> queue = new LinkedList<E>();
-//        queue.offer(initial);
-//
-//        while(!queue.isEmpty()){
-//            Node current = queue.remove();
-//            if (current.isGoal()) {
-//                return current;
-//            }
-//
-//            Node[] children = current.expand();
-//            for (Node child : children) {
-//                boolean duplicate = false;
-//                for (Node check : queue) {
-//                    if (child.equals(check)) {
-//                        duplicate = true;
-//                        break;
-//                    }
-//                }
-//                if (!duplicate) {
-//                    queue.offer(child);
-//                }
-//            }
-//        }
-//        return null;
-//    }
 }

@@ -48,6 +48,9 @@ public class AVLTree<AnyType extends Comparable<? super AnyType>>
         root = remove( x, root );
     }
 
+    public AvlNode<AnyType> getRoot() {
+        return root;
+    }
 
     /**
      * Internal method to remove from a subtree.
@@ -264,11 +267,28 @@ public class AVLTree<AnyType extends Comparable<? super AnyType>>
      * @param root the node that roots the tree.
      * @return true if x is found in subtree.
      */
-    private boolean contains( AnyType search, AvlNode<AnyType> root )
+    public boolean contains( AnyType search, AvlNode<AnyType> root )
     {
         while( root != null )
         {
             int compareResult = search.compareTo( root.element );
+
+            if( compareResult < 0 )
+                root = root.left;
+            else if( compareResult > 0 )
+                root = root.right;
+            else
+                return true;    // Match
+        }
+
+        return false;   // No match
+    }
+
+    public boolean containsHash( AnyType search, AvlNode<AnyType> root )
+    {
+        while( root != null )
+        {
+            int compareResult = root.hashCode() - search.hashCode();
 
             if( compareResult < 0 )
                 root = root.left;

@@ -26,6 +26,9 @@ public class Puzzle {
     private boolean carOrient[];
     private int gridSize;
 
+    private ArrayList<Node> allNodes;
+
+    private int allAvlNodes;
     /**
      * The main constructor for constructing a puzzle.  You probably
      * will never need to use this constructor directly, since
@@ -220,14 +223,20 @@ public class Puzzle {
     public void solve(boolean doPrint, Node initNode) {
         System.out.println("========================");
         System.out.println(initNode.toString());
-        LinkedList<Node> queue = new LinkedList<>(initNode);
-        Node solution = solve(queue);
+
+        // program 1 Linked List solve method
+//        Node solution = solve(queue);
+
+        // program 3 avl tree solve method
+        Node solution = aStarSolve();
+
         System.out.print("\n\nSOLUTION  of Depth " + solution.getDepth());
-//        System.out.println(" Total Nodes Expanded " + allNodes.size() + "\n");
+        System.out.println(" Total Nodes Expanded " + allAvlNodes + "\n");
         printSolution(solution);
     }
 
-    public Node solve(LinkedList<Node> queue){
+    public Node solve(){
+        LinkedList<Node> queue = new LinkedList<>(initNode);
         while(!queue.isEmpty()){
             Node current = queue.getHeadNode();
             if (current.isGoal()) {
@@ -236,37 +245,41 @@ public class Puzzle {
 
             Node[] children = current.expand();
             for (Node child : children) {
-                boolean duplicate = false;
-//                for (Node check : queue) {
-//                    if (child.equals(check)) {
-//                        duplicate = true;
-//                        break;
-//                    }
-//                }
-                if (!duplicate) {
+                if (!queue.findHash(child.hashCode())) {
                     queue.add(child);
                 }
             }
+            queue.removeHeadNode();
         }
         return null;
     }
 
-//    public void solve(boolean doPrint) {
-//        System.out.println("========================");
-//        System.out.println(initNode.toString());
-//
-//        System.out.print("\n\nSOLUTION  of Depth " + solution.getDepth());
-//        System.out.println(" Total Nodes Expanded " + allNodes.size() + "\n");
-//        printSolution(solution);
-//    }
+    public Node aStarSolve(){
 
-    public void aStarSolve(boolean doPrint, Node solution) {
-        System.out.println("========================");
-        System.out.println(initNode.toString());
+        HashMap<Integer, Integer> map = new HashMap<>();
 
-        System.out.print("\n\nSOLUTION  of Depth " + solution.getDepth());
-        //System.out.println(" Total Nodes Expanded " + allNodes.size() + "\n");
-        printSolution(solution);
+        AVLTree<Node> tree = new AVLTree<>();
+        tree.insert(initNode);
+        Integer hashcode = initNode.hashCode();
+        map.put(hashcode);
+        allAvlNodes++;
+        while(!tree.isEmpty()){
+            Node current = tree.findMin();
+
+            if (current.isGoal()) {
+                return current;
+            }
+
+            Node[] children = current.expand();
+            for (Node child : children) {
+                if (!map.containsKey(child.hashCode())) {
+                    tree.insert(child);
+                    allAvlNodes++;
+                }
+            }
+            tree.deleteMin();
+        }
+        return null;
     }
 
 
